@@ -1,12 +1,12 @@
 import './App.css';
-import React, { useState } from 'react'
-import { useSearch } from './hooks';
+import React, { useDebugValue, useState } from 'react'
+import { useSearch, useDebounce } from './hooks';
 
 function App() {
 
   const [value, setValue] = useState('')
-
-  const { articles, status, error } = useSearch(value)
+  // setting debounce value to half second to optime search performance by waiting for user input 
+  const { articles, status, error } = useSearch(useDebounce(value, 500))
 
   console.log(value, 'value', articles, 'articles', status, 'status', error, 'error');
   const handleChange = (e) => {

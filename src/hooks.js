@@ -7,7 +7,13 @@ export const useSearch = (query) => {
         status: 'IDLE',
         error: ''
     })
+
+    // creating cancel token to optimize search results, only allow api call if 3 characters or more are entered on input
+
     useEffect(() => {
+        if (query.length < 3) {
+            return
+        }
         axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${query}`)
             .then(response => {
                 const parseResponse = []
@@ -36,4 +42,18 @@ export const useSearch = (query) => {
             })
     }, [query])
     return state
+}
+
+export const useDebounce = (value, delay) => {
+    const [debouncedValue, setDebauncedValue] = useState(value)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebauncedValue(value)
+        }, delay)
+        return () => {
+            clearTimeout(timer)
+        }
+    }, [value, delay])
+    return debouncedValue
 }
