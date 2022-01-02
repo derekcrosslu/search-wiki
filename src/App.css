@@ -1,7 +1,21 @@
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.container{
+  width:40rem;
+  margin-top: 10rem;
+}
+
+.main{
+  display: flex;
+  flex-direction: column;
+  height: 30rem;
+}

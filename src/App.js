@@ -5,27 +5,40 @@ import React, { useState, useEffect } from 'react'
 
 function App() {
   const [data, setData] = useState([])
+  const [value, setValue] = useState('')
   useEffect(() => {
     const loadData = async () => {
       const response = await axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=Goo`)
       const parseResponse = []
       for (let i = 0; i < response.data[1].length; i++) {
         parseResponse.push({
-          id: response.data[3][1],
+          link: response.data[3][1],
           label: response.data[1][i]
         })
       }
       setData(parseResponse)
-
     }
     loadData()
   }, [])
   console.log(data, 'data');
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+      <div className='container'>
+        <div className="w-full h-10 pl-3 pr-2 bg-white border rounded-full flex justify-between items-center relative">
+          <input type="search" name="search" id="search" placeholder="Search"
+            className="appearance-none w-full outline-none focus:outline-none active:outline-none" />
+          <button type="submit" className="ml-1 outline-none focus:outline-none active:outline-none">
+            <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+              viewBox="0 0 24 24" className="w-6 h-6">
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </button>
+        </div>
+        <div className='main'>
+
+          Search Results
+        </div>
+      </div>
     </div>
   );
 }
