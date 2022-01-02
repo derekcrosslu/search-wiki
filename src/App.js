@@ -12,7 +12,6 @@ function App() {
 
   console.log(value, 'value', articles, 'articles', status, 'status', error, 'error');
   const handleChange = (e) => {
-    console.log(e.target.value, 'e.target.value');
     setValue(e.target.value)
   }
   return (

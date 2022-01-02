@@ -24,7 +24,6 @@ export const useSearch = (query) => {
                         label: response.data[1][i]
                     })
                 }
-                console.log(parseResponse, 'parseResponse');
                 // passing data into state object
                 setState({
                     articles: parseResponse,
