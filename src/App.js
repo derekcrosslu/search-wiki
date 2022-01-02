@@ -8,7 +8,7 @@ function App() {
   const [value, setValue] = useState('')
   useEffect(() => {
     const loadData = async () => {
-      const response = await axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=Goo`)
+      const response = await axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${value}`)
       const parseResponse = []
       for (let i = 0; i < response.data[1].length; i++) {
         parseResponse.push({
@@ -21,12 +21,15 @@ function App() {
     loadData()
   }, [])
   console.log(data, 'data');
+  const handleChange = (e) => {
+    setValue(e.target.value)
+  }
   return (
     <div className="App">
       <div className='container'>
         <div className="w-full h-10 pl-3 pr-2 bg-white border rounded-full flex justify-between items-center relative">
           <input type="search" name="search" id="search" placeholder="Search"
-            className="appearance-none w-full outline-none focus:outline-none active:outline-none" />
+            className="appearance-none w-full outline-none focus:outline-none active:outline-none" onChange={handleChange} />
           <button type="submit" className="ml-1 outline-none focus:outline-none active:outline-none">
             <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
               viewBox="0 0 24 24" className="w-6 h-6">
