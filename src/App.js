@@ -1,27 +1,16 @@
 import './App.css';
-import axios from 'axios'
-import { parse } from 'postcss';
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useSearch } from './hooks';
 
 function App() {
-  const [data, setData] = useState([])
+
   const [value, setValue] = useState('')
-  useEffect(() => {
-    const loadData = async () => {
-      const response = await axios.get(`https://en.wikipedia.org/w/api.php?origin=*&action=opensearch&search=${value}`)
-      const parseResponse = []
-      for (let i = 0; i < response.data[1].length; i++) {
-        parseResponse.push({
-          link: response.data[3][1],
-          label: response.data[1][i]
-        })
-      }
-      setData(parseResponse)
-    }
-    loadData()
-  }, [value])
-  console.log(data, 'data');
+
+  const { articles, status, error } = useSearch(value)
+
+  console.log(value, 'value', articles, 'articles', status, 'status', error, 'error');
   const handleChange = (e) => {
+    console.log(e.target.value, 'e.target.value');
     setValue(e.target.value)
   }
   return (
@@ -39,10 +28,10 @@ function App() {
         </div>
         <div className='main'>
           {
-            data.map((dat, index) => (
+            articles.map((article, index) => (
               <div x-data="{ dropdownOpen: true }" className="relative  flex rounded-full w-full" key={index + Math.random().toFixed(2)}>
                 <a href="#" className="flex items-center px-4 py-3 hover:bg-gray-100 flex rounded-full w-full " >
-                  {dat.label}
+                  {article.label}
                 </a>
               </div>
             ))
