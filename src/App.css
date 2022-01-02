@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -10,12 +11,19 @@
 @tailwind utilities;
 
 .container{
+
   width:40rem;
   margin-top: 10rem;
+  
 }
 
 .main{
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 2rem;
   height: 30rem;
+  width:40rem;
+  color: brown;
 }
